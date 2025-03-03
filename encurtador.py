@@ -2,8 +2,8 @@ import requests
 import json
 import os
 
-API_URL = "https://url.class-one.com.br"
-API_TOKEN = "X1u!Mgiz#GBp6YwaUSVj#r8xElCh=f1yf0FQ6lLxlu8VO&N6Ggw3Tt_EQd!lHs&2UDx3=YWPTc5Up@7v"
+API_URL = "" #adicionar posteriormente
+API_TOKEN = "" #adicionar posteriormente
 
 def clear_terminal():
   os.system('cls' if os.name == 'nt' else 'clear')
