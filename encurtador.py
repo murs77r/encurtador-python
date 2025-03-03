@@ -1,9 +1,12 @@
 import requests
 import json
 import os
+import configparser  
 
-API_URL = "" #adicionar posteriormente
-API_TOKEN = "" #adicionar posteriormente
+config = configparser.ConfigParser()
+config.read("config.ini")
+API_KEY = config["API"]["api_key"]
+API_URL = config["API"]["api_url"]
 
 def clear_terminal():
   os.system('cls' if os.name == 'nt' else 'clear')
@@ -20,15 +23,14 @@ def display_menu():
 
 def confirmar_informacao(mensagem):
     while True:
-        confirmacao = input(f"{mensagem} (S/N): ").lower()
-        if confirmacao == "S":
-            return True
-        elif confirmacao == "N":
+        confirmacao = input(f"{mensagem} (N para REPETIR): ").upper()
+        if confirmacao == "N":
             return False
         else:
-            print("Resposta inválida. Digite 'S' para sim ou 'N' para não.")
+            return True
 
 def adicionar_url():
+    clear_terminal()
     while True:
         short = input("URL Curta desejada: ")
         if confirmar_informacao(f"URL Curta: {short}. Está correto?"):
@@ -50,7 +52,7 @@ def adicionar_url():
         "metodo": "adicao",
         "short": short,
         "long": long,
-        "token": API_TOKEN
+        "token": API_KEY
     }
     try:
         response = requests.post(API_URL, json=data)
@@ -64,6 +66,7 @@ def adicionar_url():
         clear_terminal()
 
 def editar_url():
+    clear_terminal()
     while True:
         short = input("URL Curta a ser editada: ")
         if confirmar_informacao(f"URL Curta: {short}. Está correto?"):
@@ -84,7 +87,7 @@ def editar_url():
         "metodo": "edicao",
         "short": short,
         "long": long,
-        "token": API_TOKEN
+        "token": API_KEY
     }
     try:
         response = requests.post(API_URL, json=data)
@@ -98,6 +101,7 @@ def editar_url():
         clear_terminal()
 
 def excluir_url():
+    clear_terminal()
     while True:
         short = input("URL Curta a ser excluída: ")
         if confirmar_informacao(f"URL Curta: {short}. Está correto?"):
@@ -110,7 +114,7 @@ def excluir_url():
         "metodo": "exclusao",
         "short": short,
         "long": "dummy",
-        "token": API_TOKEN
+        "token": API_KEY
     }
     try:
         response = requests.post(API_URL, json=data)
