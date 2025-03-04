@@ -139,6 +139,7 @@ while True:
         excluir_url()
     elif opcao == "4":
         print("Saindo...")
+        clear_terminal()
         break
     else:
         print("Opção inválida. Tente novamente.")
